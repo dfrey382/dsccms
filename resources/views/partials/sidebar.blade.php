@@ -35,14 +35,11 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#roles-dropdown"
-                class="nav-link"
-                data-toggle="collapse"
-                aria-expanded=" {{ Request::is('/') ? 'active' : ''  }}" href="{{ route('posts.index')}}">
+                <a href="#posts-dropdown" class="nav-link" data-toggle="collapse" aria-expanded=" {{ Request::is('/') ? 'active' : ''  }}" href="{{ route('posts.index')}}">
                 <i class="fas fa-server"></i>
                 <span>Posts</span>
                 </a>
-                <ul class="{{ Request::is('role*') || Request::is('permission*') ? '' : 'collapse' }} list-unstyled sub-menu" id="roles-dropdown">
+                <ul class="{{ Request::is('post*') || Request::is('permission*') ? '' : 'collapse' }} list-unstyled sub-menu" id="posts-dropdown">
                     @permission('roles.manage')
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('role*') ? 'active' : '' }}"
@@ -52,7 +49,13 @@
                     @permission('permissions.manage')
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('permission*') ? 'active' : '' }}"
-                           href="{{ route('permission.index') }}">@lang('app.permissions')</a>
+                           href="{{ route('posts.index') }}">View all Post</a>
+                    </li>
+                    @endpermission
+                    @permission('permissions.manage')
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('permission*') ? 'active' : '' }}"
+                           href="{{ route('posts.create') }}">Create a new Post</a>
                     </li>
                     @endpermission
                 </ul>

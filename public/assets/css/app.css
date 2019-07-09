@@ -11793,3 +11793,64 @@ label {
   margin-top: 20px;
 }
 
+.title__two {
+  margin: 12px 0;
+  font-size: 1.1em;
+}
+
+.title__one {
+  font-size: 23px;
+  font-weight: 400;
+  margin: 0;
+  padding: 9px 0 4px 0;
+  line-height: 1.3;
+}
+
+label {
+  font-weight: 400;
+}
+
+tr:hover .row-actions {
+  position: static;
+}
+
+tr:hover .row-actions .edit a {
+  color: #179970;
+}
+
+tr:hover .row-actions .delete a {
+  color: red;
+}
+
+tr:hover .row-actions a {
+  color: #179970;
+}
+
+tr .row-actions {
+  color: #ddd;
+  font-size: 13px;
+  padding: 2px 0 0;
+  position: relative;
+  left: -9999em;
+}
+
+.cat__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 22px;
+  word-wrap: break-word;
+}
+
+#snow-container {
+  height: 350px;
+}
+
+#edit-slug-box {
+  line-height: 24px;
+  min-height: 25px;
+  margin-top: 5px;
+  padding: 0 10px;
+  color: #666;
+}
+

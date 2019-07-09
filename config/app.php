@@ -183,6 +183,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        // Dsccore\Widget\WidgetServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -256,6 +257,7 @@ return [
         'Authy' => Dsc\Services\Auth\TwoFactor\Facade::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Widget' => Dsccore\Widget\WidgetFacade::class,
 
     ],
 

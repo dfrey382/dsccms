@@ -15,6 +15,8 @@ mix.scripts([
     'public/assets/js/jquery-3.3.1.min.js',
     'public/assets/js/popper.min.js',
     'public/assets/js/bootstrap.min.js',
+    'public/vendor/getuikit/js/uikit.minjs',
+    'public/vendor/getuikit/js/uikit-icons.minjs',
     'public/assets/js/moment.min.js',
     'public/assets/js/sweetalert.min.js',
     'public/assets/js/delete.handler.js',
@@ -29,6 +31,8 @@ mix.styles([
     'public/assets/css/fontawesome-all.min.css',
     'public/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css',
     'public/assets/plugins/croppie/croppie.css',
+    'public/vendor/quill/quill.core.css',
+    'public/vendor/getuikit/css/uikit.min.css'
 ], 'public/assets/css/vendor.css');
 
 mix.sass('resources/sass/app.scss', 'public/assets/css');

@@ -1,5 +1,5 @@
-## Vanguard - Advanced PHP Login and User Management
+## DSC Content Management System
 
-- Website: https://vanguardapp.io
+- Website: https://digitalstepscreatives.co.ke
 - Documentation: https://milos.support-hub.io
-- Developed by [Milos Stojanovic](https://twitter.com/loshmis)
+- Developed by [DSC](https://twitter.com/dsccreatives)

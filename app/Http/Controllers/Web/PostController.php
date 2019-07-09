@@ -4,6 +4,7 @@ namespace Dsc\Http\Controllers\Web;
 
 use Dsc\Post;
 use Dsc\Category;
+use Auth;
 use Illuminate\Http\Request;
 use Dsc\Http\Controllers\Controller;
 
@@ -34,9 +35,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Post $post)
+    public function create()
     {
-        return view('backend.posts.form', compact('post'));
+        $allcats = Category::all();
+        return view('backend.posts.post-new', compact('allcats'));
     }
 
     /**
@@ -101,6 +103,14 @@ class PostController extends Controller
         return view('backend.posts.confirm', compact('post'));
     }
 
+     public function _recentPosts($parameters = array())
+     {
+            extract($parameters) ;
+            $count = isset($count) ? $count : 10 ;
+            $posts = Post::published()->recent()->orderBy('created_at', 'desc')->take($count)->get() ;
+            return \View::make('widgets._recentPosts', ['posts'=>$posts]) ;
+     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -118,8 +128,39 @@ class PostController extends Controller
     }
 
     public function categories() {
-        $categories = $this->categories->orderBy('published_at', 'desc')->paginate(10);
+        $categories = $this->categories->orderBy('created_at', 'desc')->paginate(10);
 
         return view('backend.posts.categories', compact('categories'));
+    }
+    public function addcategories(Request $request) {
+        $category = new Category();
+        $category->post_title = $request->get('title');
+        $category->slug = $request->get('slug');
+        $category->description = $request->get('description');
+        $category->author_id = auth::id();
+        $category->save();
+        return redirect()->route('category')
+            ->withSuccess('Category added Successfully');
+    }
+
+    public function editcategory(Request $request, $id) {
+        $category = Category::find($id);
+        $category->post_title = $request->get('title');
+        $category->slug = $request->get('slug');
+        $category->description = $request->get('description');
+        $category->author_id = auth::id();
+        $category->update();
+        return redirect()->route('category')
+            ->withSuccess('Category updated Successfully');
+    }
+
+    public function deletecategory(Category $categories) {
+
+        $this->categories->delete($categories->id);
+
+        Cache::flush();
+
+        return redirect()->route('category')
+            ->withSuccess('Category deleted');
     }
 }

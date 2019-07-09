@@ -20,6 +20,7 @@
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ url(mix('assets/css/vendor.css')) }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ url(mix('assets/css/app.css')) }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('vendor/quill/quill.snow.css')}}">
 
     @yield('styles')
 </head>
@@ -40,6 +41,7 @@
 
     <script src="{{ url(mix('assets/js/vendor.js')) }}"></script>
     <script src="{{ url('assets/js/as/app.js') }}"></script>
+    <script src="{{ url('vendor/quill/quill.min.js')}}"></script>
     <script src="{{ url('assets/js/app.js') }}"></script>
     @yield('scripts')
 </body>

@@ -4,14 +4,17 @@
 
 @section('content')
 <div class="row">
-    <div class="col-sm-12"><h2>Categories</h2></div>
+    <div class="col-sm-12"><h2 class="title__one">Categories</h2></div>
+   <div class="col-sm-12">
+        @include('partials.messages')
+   </div>
 </div>
 <div class="row">
-    <div class="col-6 col-md-6">
-        <h4>Add New Category</h4>
-        <form id="addtag" method="post" action="" class="validate">
+    <div class="col-md-6 col-12">
+        <h4 class="title__two">Add New Category</h4>
+    <form id="addtag" method="post" action="{{route('new-category')}}" class="validate">
             
-                
+                @csrf
             <div class="form-field form-required term-name-wrap">
                 <label for="tag-name">Name</label>
                 <input name="title" id="title" type="text" value="" class="form-control" aria-required="true">
@@ -26,10 +29,9 @@
                 <label for="parent">Parent Category</label>
                     <select name="parent" id="parent" class="form-control">
                 <option value="-1">None</option>
-                <option class="level-0" value="4">Lifestyle Management</option>
-                <option class="level-0" value="5">Mum’s Club</option>
-                <option class="level-0" value="3">Nutrition</option>
-                <option class="level-0" value="1">Parenthood</option>
+                @foreach ($categories as $item)
+                    <option value="{{$item->id}}">{{$item->post_title}}</option>
+                @endforeach
             </select>
                             <small>Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.</small>
                 </div>
@@ -42,9 +44,17 @@
                 <p class="submit"><input type="submit" name="submit" id="submit" class="btn btn-primary" value="Add New Category"></p>
             </form>
     </div>
-    <div class="col-6 col-md-6">
-        <table class="table table-hover" id="">
-            <thead>
+    <div class="col-md-6 col-12">
+       <div class="card card-body">
+           <div class="tablenav top">
+               <div class="float-left"></div>
+               <div class="float-right">
+                   <span class="displaying-num">{{$categories->count()}} items</span>
+               </div>
+           </div>
+           
+        <table class="table table-hover table-striped" id="">
+            <thead class="thead-dark">
                 <tr>
                     <th>Title</th>
                     <th>Slug</th>
@@ -58,29 +68,50 @@
                 @foreach($categories as $item)
                     <tr class="{{ $item->published_highlight }}">
                         <td>
-                            <a href="{{ route('post.edit', $item->id) }}">{{ $item->title }}</a>
+                            <a  data-toggle="modal" data-target="#edit-{{$item->id}}">{{ $item->post_title }}</a>
+                            <div class="row-actions">
+                                <span class="edit">
+                                        <a title="edit category"  data-toggle="modal" data-target="#edit-{{$item->id}}" data-toggle="tooltip" data-placement="top" data-method="Edit">Edit</a>
+                                </span>
+                                |
+                                <span class="delete">
+                                        <a href="{{ route('category.delete', $item->id) }}" title="delete category" data-toggle="tooltip" data-placement="top" data-method="Delete" data-confirm-title="@lang('app.please_confirm')" data-confirm-text="Are you sure you want to delete this category?"
+                                                data-confirm-delete="@lang('app.yes_delete_it')">
+                                                 Delete
+                                        </a>
+                                </span>
+                                |
+                                <span class="view">
+                                    <a href="" title="view category"  data-toggle="tooltip" data-placement="top" data-method="View">
+                                        View
+                                    </a>
+                                </span>
+                            </div>
                         </td>
-                        <td>{{ $item->post_title }}</td>
-                        <td>{{ $item->author->name }}</td>
-                        <td>{{ $item->published_date }}</td>
+                        <td>{{ $item->slug }}</td>
+                        <td>{{ $item->author->first_name }}</td>
+                        <td>{{ $item->created_at }}</td>
                         <td>
-                            <a href="{{ route('backend.blog.edit', $item->id) }}">
-                                <span class="glyphicon glyphicon-edit"></span>
+                            <a data-toggle="modal" data-target="#edit-{{$item->id}}"  class="btn btn-icon">
+                                <i class="fas fa-edit"></i>
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('backend.blog.confirm', $item->id) }}">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </a>
+                            <a href="{{ route('category.delete', $item->id) }}" class="btn btn-icon" title="delete category" data-toggle="tooltip" data-placement="top" data-method="DELETE" data-confirm-title="@lang('app.please_confirm')" data-confirm-text="Are you sure you want to delete this category?"
+                                data-confirm-delete="@lang('app.yes_delete_it')">
+                                 <i class="fas fa-trash"></i>
+                             </a>
                         </td>
+                        @include('backend.posts.partials.editcategory')
                     </tr>
                 @endforeach
             </tbody>
         </table>
+       </div>
     
         {!! $categories->render() !!}
     </div>
 </div>
-   
+  
 
 @endsection

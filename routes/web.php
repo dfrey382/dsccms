@@ -354,6 +354,9 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
     Route::resource('posts','PostController');
     Route::get('taxonomy/category','PostController@categories')->name('category');
+    Route::post('new/category/taxonomy/','PostController@addcategories')->name('new-category');
+    Route::post('taxonomy/category/{id}', 'PostController@editcategory')->name('category.edit');
+    Route::post('category/delete/', 'PostController@deletecategory')->name('category.delete');
 });
 
 
